@@ -1,0 +1,16 @@
+import requests
+from config import URL_LLAMA
+
+def generar_respuesta(usuario, texto):
+    # El prompt que lo convierte en vendedor
+    prompt = f"Eres un experto en ventas de la Agencia IA. Responde de forma clara y persuasiva: {texto}"
+    
+    try:
+        res = requests.post(URL_LLAMA, json={
+            "model": "llama3",
+            "prompt": prompt,
+            "stream": False
+        })
+        return res.json().get("response", "Dime, ¿en qué más puedo ayudarte?")
+    except:
+        return "Estoy optimizando mis sistemas, un momento por favor."
